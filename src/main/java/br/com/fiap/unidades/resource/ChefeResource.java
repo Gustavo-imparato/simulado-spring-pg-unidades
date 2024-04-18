@@ -40,6 +40,23 @@ public class ChefeResource {
         if (chefe.isEmpty()) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(chefe.get());
     }
+    @GetMapping(value = "/byUsuario/{usuario}")
+    public ResponseEntity<List<Chefe>> findByUsuario(@PathVariable String usuario) {
+        List<Chefe> chefes = repo.findByUsuario(usuario);
+        return chefes.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(chefes);
+    }
+
+    @GetMapping(value = "/bySubstituto/{substituto}")
+    public ResponseEntity<List<Chefe>> findBySubstituto(@PathVariable String substituto) {
+        List<Chefe> chefes = repo.findBySubstituto(substituto);
+        return chefes.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(chefes);
+    }
+
+    @GetMapping(value = "/byUnidade/{unidade}")
+    public ResponseEntity<List<Chefe>> findByUnidade(@PathVariable String unidade) {
+        List<Chefe> chefes = repo.findByUnidade(unidade);
+        return chefes.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(chefes);
+    }
     @Transactional
     @PostMapping
     public ResponseEntity<Chefe> save(@RequestBody Chefe chefe) {

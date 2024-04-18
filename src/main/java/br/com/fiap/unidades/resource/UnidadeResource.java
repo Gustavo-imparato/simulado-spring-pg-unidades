@@ -43,6 +43,25 @@ public class UnidadeResource {
         if (unidade.isEmpty()) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(unidade.get());
     }
+
+    @GetMapping(value = "/byNome/{nome}")
+    public ResponseEntity<List<Unidade>> findByNome(@PathVariable String nome) {
+        List<Unidade> unidades = repo.findByNome(nome);
+        return unidades.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(unidades);
+    }
+
+    @GetMapping(value = "/bySigla/{sigla}")
+    public ResponseEntity<List<Unidade>> findBySigla(@PathVariable String sigla) {
+        List<Unidade> unidades = repo.findBySigla(sigla);
+        return unidades.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(unidades);
+    }
+
+    @GetMapping(value = "/byMacro/{macro}")
+    public ResponseEntity<List<Unidade>> findByMacro(@PathVariable String macro) {
+        List<Unidade> unidades = repo.findByMacro(macro);
+        return unidades.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(unidades);
+    }
+
     @Transactional
     @PostMapping
     public ResponseEntity<Unidade> save(@RequestBody Unidade unidade) {
